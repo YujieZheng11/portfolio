@@ -1,12 +1,12 @@
 window.PORTFOLIO_COPY = [
   ['.skip-link', 'Skip to selected work', '跳至精选作品'],
   ['.wordmark-suffix', ' / DESIGN ARCHIVE', ' / 设计档案'],
-  ['.nav a[href="#work"]', 'WORK <sup>06</sup>', '作品 <sup>06</sup>'],
+  ['.nav a[href="#work"]', 'WORK <sup>{count}</sup>', '作品 <sup>{count}</sup>'],
   ['.nav a[href="#introduction"]', 'ABOUT', '关于'],
   ['#index-open', 'INDEX ↗', '目录 ↗'],
   ['.hero-topline span:first-child', 'VISUAL COMMUNICATION & DIGITAL EXPLORATION', '视觉传达与数字探索'],
   ['.hero-topline span:last-child', 'PORTFOLIO — 2022–2026', '作品集 — 2022–2026'],
-  ['#hero-name', 'YUJIE ZHENG<span class="name-dot" aria-hidden="true">✳</span>', '郑钰婕<span class="name-dot" aria-hidden="true">✳</span>'],
+  ['#hero-name', 'PORTFOLIO<span class="name-dot" aria-hidden="true">✳</span>', '作品集<span class="name-dot" aria-hidden="true">✳</span>'],
   ['.hero-copy .eyebrow', '<span class="tiny-square"></span> AN ONGOING EXPLORATION', '<span class="tiny-square"></span> 一场持续的探索'],
   ['.hero-copy h2', 'Making the<br><span class="highlight">invisible</span><br>visible<span class="period">.</span>', '让<span class="highlight">未被看见</span>的<br>被看见<span class="period">。</span>'],
   ['.hero-description', 'I turn observations into visual experiences.<br>Exploring the space between people,<br>their emotions, and the everyday.', '将细微的观察，转化为视觉体验。<br>探索人与情感之间，<br>以及日常生活里的隐秘联系。'],
@@ -27,7 +27,7 @@ window.PORTFOLIO_COPY = [
   ['.work-section .section-top span:last-child', 'RESEARCH → EXPERIMENT → FORM', '研究 → 实验 → 成形'],
   ['#work-heading', 'A few things<br>I’ve been making<span class="green-star" aria-hidden="true">✳</span>', '一些观察，<br>一些正在成形的想法<span class="green-star" aria-hidden="true">✳</span>'],
   ['.section-heading > p', 'From a quiet digital companion<br>to the traces left on a city wall.<br><span>Observe, experiment, give ideas form.</span>', '从安静的数字陪伴，<br>到城市墙面留下的痕迹。<br><span>观察、实验，再让想法成形。</span>'],
-  ['[data-filter="all"]', 'ALL <sup>06</sup>', '全部 <sup>06</sup>'],
+  ['[data-filter="all"]', 'ALL <sup>{count}</sup>', '全部 <sup>{count}</sup>'],
   ['[data-filter="digital"]', 'DIGITAL', '数字设计'],
   ['[data-filter="graphic"]', 'GRAPHIC', '平面设计'],
   ['[data-filter="material"]', 'MATERIAL', '材料探索'],
@@ -52,10 +52,12 @@ window.PORTFOLIO_COPY = [
   ['.footer-bottom > span:nth-child(2)', 'MADE OF QUESTIONS & CURIOSITY.', '以问题出发，以好奇心继续。'],
   ['.footer-bottom > span:last-child', 'PORTFOLIO / 2022–2026', '作品集 / 2022–2026'],
   ['.case-controls > span:first-child', 'OUTCOME → PROCESS', '成品 → 创作过程'],
+  ['#project-website', 'VISIT PROJECT ↗', '体验项目网站 ↗'],
+  ['#case-original', 'VIEW LARGE IMAGE ↗', '查看大图 ↗'],
   ['#next-project', 'NEXT PROJECT ↗', '下一个作品 ↗'],
   ['.index-content .eyebrow', 'A DIRECTORY OF IDEAS', '想法的目录'],
   ['#index-title', 'Project index<span class="period">.</span>', '作品目录<span class="period">。</span>'],
-  ['.index-note', '06 PROJECTS / CLICK A TITLE TO EXPLORE', '06 件作品 / 点击标题浏览']
+  ['.index-note', '{count} PROJECTS / CLICK A TITLE TO EXPLORE', '{count} 件作品 / 点击标题浏览']
 ];
 window.PORTFOLIO_LABELS = {
   en: { project: 'PROJECT', singular: 'PROJECT', plural: 'PROJECTS', explore: 'Explore', outcome: 'Selected design outcome', image: 'View image', digital: 'DIGITAL', graphic: 'GRAPHIC', material: 'MATERIAL', pause: 'Ⅱ PAUSE', play: '▷ PLAY', pauseLabel: 'Pause particle animation', playLabel: 'Play particle animation', title: 'Yujie Zheng — Selected Work', description: 'Yujie Zheng — graphic designer. Selected work, 2022–2026, exploring people, emotions and everyday life.' },
@@ -65,5 +67,51 @@ window.PORTFOLIO_ARIA = [
   ['.wordmark', 'Yujie Zheng, home', '郑钰婕，首页'], ['.nav nav', 'Main navigation', '主导航'], ['.language-switch', 'Website language', '网站语言'],
   ['.filters', 'Filter projects', '筛选作品'], ['#particle-art', 'An animated monochrome particle sculpture responding to pointer movement', '随指针移动而变化的黑白动态粒子雕塑'],
   ['#project-dialog .dialog-close', 'Close project', '关闭作品'], ['#index-dialog .dialog-close', 'Close project index', '关闭作品目录'],
-  ['#prev-slide', 'Previous project image', '上一张作品图片'], ['#next-slide', 'Next project image', '下一张作品图片'], ['#case-thumbnails', 'Choose project image', '选择作品图片']
+  ['#prev-slide', 'Previous project image', '上一张作品图片'], ['#next-slide', 'Next project image', '下一张作品图片'], ['#case-thumbnails', 'Choose project image', '选择作品图片'], ['#type-lab', 'Interactive type specimen', '字体互动试排'], ['#lettering-showcase', 'Bussey Building lettering studies', 'Bussey Building 标题字互动展示']
 ];
+
+window.PORTFOLIO_TYPE_LABELS = {
+  en: {
+    eyebrow: '02 / AN ALPHABET TO PLAY WITH', heading: 'Build a little language.',
+    input: 'Your words', placeholder: 'Type something in English…', sample: 'ANOTHER PHRASE ↗',
+    size: 'SIZE', spacing: 'SPACING', paper: 'DARK PAPER', guides: 'CONSTRUCTION GRID',
+    stage: 'LIVE COMPOSITION', source: 'A–Z / a–z / punctuation from the original specimen',
+    inspector: 'A CLOSER LOOK', pick: 'Choose a letter. Notice its structure.',
+    letter: 'Inspect letter', empty: 'A little space for your words.',
+    unsupported: 'Characters outside the specimen appear in a simple system font:',
+    unit: 'px', original: 'SOLID / LINE / SPACE'
+  },
+  zh: {
+    eyebrow: '02 / 一套可以玩起来的字母', heading: '让字母，构筑一句话。',
+    input: '英文试排', placeholder: '写一句英文，看看它的样子…', sample: '换一句试试 ↗',
+    size: '字号', spacing: '字距', paper: '深色纸张', guides: '结构网格',
+    stage: '你的字句，正在成形', source: '原字形收录 A–Z / a–z / 标点符号',
+    inspector: '靠近一点，看字的结构', pick: '点选一个字母，看看实心、细线与留白。',
+    letter: '查看字母', empty: '留一点空间，写下你的字句。',
+    unsupported: '原字形表未收录的字符以系统字标记：',
+    unit: 'px', original: '实心 / 细线 / 留白'
+  }
+};
+
+window.PORTFOLIO_LETTERING_LABELS = {
+  en: {
+    eyebrow: '01 / BUSSEY BUILDING — LETTERING STUDIES',
+    heading: 'One name. Thirteen voices.',
+    intro: 'From fractured strokes to loose outlines. Choose a study to see its character up close, or pin one to compare.',
+    previous: 'Previous lettering study', next: 'Next lettering study',
+    pin: 'PIN TO COMPARE +', unpin: 'END COMPARISON ×', invert: 'INVERT PAPER',
+    current: 'IN FOCUS', pinned: 'A / PINNED', comparison: 'B / IN FOCUS',
+    choose: 'Choose a lettering study', keyboard: 'Lettering display. Use left and right arrow keys to change the study.',
+    strip: '13 STUDIES / SELECT A STYLE', swipe: 'SCROLL TO EXPLORE →'
+  },
+  zh: {
+    eyebrow: '01 / BUSSEY BUILDING — 标题字实验',
+    heading: '一个名字，十三种性格。',
+    intro: '从破碎的笔画，到自由的轮廓。选一款靠近看，也可以固定一款，比较两种字的性格。',
+    previous: '上一款标题字', next: '下一款标题字',
+    pin: '固定一款作对照 +', unpin: '结束对照 ×', invert: '黑白反转',
+    current: '正在看这一款', pinned: 'A / 固定对照', comparison: 'B / 当前字样',
+    choose: '选择标题字样式', keyboard: '标题字展台，可用左右方向键切换字样。',
+    strip: '13 款标题字 / 点击切换', swipe: '横向浏览更多 →'
+  }
+};

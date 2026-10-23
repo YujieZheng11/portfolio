@@ -22,6 +22,9 @@
   <link rel="stylesheet" href="styles.css">
   <script src="translations.js" defer></script>
   <script src="projects.js" defer></script>
+  <script src="typeface-data.js" defer></script>
+  <script src="lettering-showcase.js" defer></script>
+  <script src="type-lab.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -29,7 +32,7 @@
   <header class="nav">
     <a class="wordmark" href="#top" aria-label="Yujie Zheng, home"><span class="brand-symbol" aria-hidden="true">✳</span> YZ<span class="wordmark-suffix"> / DESIGN ARCHIVE</span></a>
     <nav aria-label="Main navigation">
-      <a href="#work">WORK <sup>06</sup></a>
+      <a href="#work">WORK <sup>09</sup></a>
       <a href="#introduction">ABOUT</a>
       <button id="index-open" type="button">INDEX <span aria-hidden="true">↗</span></button>
       <div class="language-switch" role="group" aria-label="Website language"><button type="button" data-language="zh" lang="zh-CN" aria-label="切换为中文" aria-pressed="false">中</button><span aria-hidden="true">/</span><button type="button" data-language="en" lang="en" aria-label="Switch to English" aria-pressed="true">EN</button></div>
@@ -38,7 +41,7 @@
   <main id="top">
     <section class="hero" aria-labelledby="hero-name">
       <div class="hero-topline mono"><span>VISUAL COMMUNICATION & DIGITAL EXPLORATION</span><span>PORTFOLIO — VOL. 01</span></div>
-      <h1 id="hero-name">YUJIE ZHENG<span class="name-dot" aria-hidden="true">✳</span></h1>
+      <h1 id="hero-name">PORTFOLIO<span class="name-dot" aria-hidden="true">✳</span></h1>
       <div class="hero-body">
         <div class="hero-copy">
           <p class="eyebrow"><span class="tiny-square"></span> AN ONGOING EXPLORATION</p>
@@ -76,12 +79,12 @@
       <div class="section-heading"><h2 id="work-heading">A few things<br>I've been making<span class="green-star" aria-hidden="true">✳</span></h2><p>From a quiet digital companion<br>to the traces left on a city wall.<br><span>观察、实验，再让想法成形。</span></p></div>
       <div class="work-toolbar">
         <div class="filters" role="group" aria-label="Filter projects">
-          <button type="button" data-filter="all" aria-pressed="true">ALL <sup>06</sup></button>
+          <button type="button" data-filter="all" aria-pressed="true">ALL <sup>09</sup></button>
           <button type="button" data-filter="digital" aria-pressed="false">DIGITAL</button>
           <button type="button" data-filter="graphic" aria-pressed="false">GRAPHIC</button>
           <button type="button" data-filter="material" aria-pressed="false">MATERIAL</button>
         </div>
-        <span id="project-count" class="mono" aria-live="polite">6 PROJECTS</span>
+        <span id="project-count" class="mono" aria-live="polite">9 PROJECTS</span>
       </div>
       <div id="project-grid" class="project-grid"></div>
       <noscript><p>Enable JavaScript to explore the project gallery and interactive artwork.</p></noscript>
@@ -98,8 +101,17 @@
   </main>
   <dialog id="project-dialog" aria-labelledby="dialog-title">
     <div class="dialog-bar window-bar"><span class="window-box" aria-hidden="true"></span><span class="window-lines"></span><span id="dialog-file">project.view</span><span class="window-lines"></span><button class="dialog-close" type="button" aria-label="Close project">✕</button></div>
-    <div class="dialog-content"><div class="dialog-intro"><div><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-subtitle" lang="zh-CN"></p></div><p id="dialog-description"></p></div><div class="case-controls mono"><span>SELECTED PROCESS & OUTCOME</span><span id="slide-status" aria-live="polite"></span><div><button type="button" id="prev-slide" aria-label="Previous project image">←</button><button type="button" id="next-slide" aria-label="Next project image">→</button></div></div><figure class="case-figure"><img id="case-image" alt=""><figcaption id="case-caption" class="mono"></figcaption></figure><div id="case-thumbnails" class="case-thumbnails" role="group" aria-label="Choose project image"></div><div class="case-bottom mono"><span id="project-position"></span><button type="button" id="next-project">NEXT PROJECT ↗</button></div></div>
+    <div class="dialog-content">
+      <div class="dialog-intro"><div><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-subtitle" lang="zh-CN"></p><a id="project-website" class="case-website mono" target="_blank" rel="noopener noreferrer" hidden>VISIT PROJECT ↗</a></div><p id="dialog-description"></p></div>
+      <section id="lettering-showcase" class="lettering-showcase" aria-label="Bussey Building lettering studies" hidden></section>
+      <section id="type-lab" class="type-lab" aria-label="Interactive type specimen" hidden></section>
+      <div class="case-controls mono"><span>OUTCOME → PROCESS</span><span id="slide-status" aria-live="polite"></span><div><button type="button" id="prev-slide" aria-label="Previous project image">←</button><button type="button" id="next-slide" aria-label="Next project image">→</button></div></div>
+      <figure class="case-figure"><img id="case-image" alt=""><figcaption id="case-caption" class="mono"></figcaption></figure>
+      <div class="case-image-tools mono"><a id="case-original" target="_blank" rel="noopener noreferrer">VIEW LARGE IMAGE ↗</a></div>
+      <div id="case-thumbnails" class="case-thumbnails" role="group" aria-label="Choose project image"></div>
+      <div class="case-bottom mono"><span id="project-position"></span><button type="button" id="next-project">NEXT PROJECT ↗</button></div>
+    </div>
   </dialog>
-  <dialog id="index-dialog" aria-labelledby="index-title"><div class="window-bar"><span class="window-box" aria-hidden="true"></span><span class="window-lines"></span><span>directory.txt</span><span class="window-lines"></span><button class="dialog-close" type="button" aria-label="Close project index">✕</button></div><div class="index-content"><p class="eyebrow">A DIRECTORY OF IDEAS</p><h2 id="index-title">Project index<span class="period">.</span></h2><div id="index-list"></div><p class="mono index-note">06 PROJECTS / CLICK A TITLE TO EXPLORE</p></div></dialog>
+  <dialog id="index-dialog" aria-labelledby="index-title"><div class="window-bar"><span class="window-box" aria-hidden="true"></span><span class="window-lines"></span><span>directory.txt</span><span class="window-lines"></span><button class="dialog-close" type="button" aria-label="Close project index">✕</button></div><div class="index-content"><p class="eyebrow">A DIRECTORY OF IDEAS</p><h2 id="index-title">Project index<span class="period">.</span></h2><div id="index-list"></div><p class="mono index-note">09 PROJECTS / CLICK A TITLE TO EXPLORE</p></div></dialog>
 </body>
 </html>

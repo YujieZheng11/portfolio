@@ -10,6 +10,7 @@
   try { language = localStorage.getItem('portfolio-language') || (navigator.language.startsWith('zh') ? 'zh' : 'en'); } catch {}
   if (!['en', 'zh'].includes(language)) language = 'en';
   const text = (key) => window.PORTFOLIO_LABELS[language][key];
+  const number = value => String(value).padStart(2, '0');
   const localizedProject = (index) => language === 'zh' ? {...projects[index], ...window.PORTFOLIO_PROJECT_TEXT_ZH[projects[index].id]} : projects[index];
 
   function renderProjects() {
@@ -22,13 +23,13 @@
     card.dataset.id = project.id;
     card.dataset.category = project.category;
     card.style.setProperty('--card-bg', project.color);
-    card.innerHTML = `<button type="button" aria-label="${text('explore')} ${project.title}"><div class="project-image"><span class="image-index">0${i + 1} / ${text('project')}</span><span class="cover-edition" aria-hidden="true">YZ — 2022–2026</span><div class="cover-art"><img src="assets/${project.id}-cover.webp" alt="${project.title} — ${text('outcome')}" loading="lazy" width="800" height="620"></div><span class="cover-title" lang="en" aria-hidden="true">${source.title}</span><span class="image-action" aria-hidden="true">↗</span></div><div class="project-meta"><span>${project.label}</span><span>0${i + 1}</span></div><h3 class="project-title">${project.title}</h3><p class="project-summary">${project.short}</p></button>`;
+    card.innerHTML = `<button type="button" aria-label="${text('explore')} ${project.title}"><div class="project-image"><span class="image-index">${number(i + 1)} / ${text('project')}</span><span class="cover-edition" aria-hidden="true">YZ — 2022–2026</span><div class="cover-art"><img src="assets/${project.id}-cover.webp" alt="${project.title} — ${text('outcome')}" loading="lazy" width="800" height="620"></div><span class="cover-title" lang="en" aria-hidden="true">${source.title}</span><span class="image-action" aria-hidden="true">↗</span></div><div class="project-meta"><span>${project.label}</span><span>${number(i + 1)}</span></div><h3 class="project-title">${project.title}</h3><p class="project-summary">${project.short}</p></button>`;
     card.querySelector('button').addEventListener('click', () => openProject(i));
     grid.append(card);
 
     const row = document.createElement('button');
     row.type = 'button'; row.className = 'index-row';
-    row.innerHTML = `<span class="mono">0${i + 1}</span><span class="index-name">${project.title}</span><span class="mono index-category">${text(project.category)}</span><span aria-hidden="true">↗</span>`;
+    row.innerHTML = `<span class="mono">${number(i + 1)}</span><span class="index-name">${project.title}</span><span class="mono index-category">${text(project.category)}</span><span aria-hidden="true">↗</span>`;
     row.addEventListener('click', () => { indexDialog.close(); openProject(i); });
     el('#index-list').append(row);
   }
@@ -50,7 +51,7 @@
     try { localStorage.setItem('portfolio-language', language); } catch {}
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
     const column = language === 'zh' ? 2 : 1;
-    window.PORTFOLIO_COPY.forEach(entry => { el(entry[0]).innerHTML = entry[column]; });
+    window.PORTFOLIO_COPY.forEach(entry => { el(entry[0]).innerHTML = entry[column].replaceAll('{count}', number(projects.length)); });
     window.PORTFOLIO_ARIA.forEach(entry => { el(entry[0]).setAttribute('aria-label', entry[column]); });
     document.querySelectorAll('[data-language]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
     document.title = text('title');
@@ -86,7 +87,18 @@
     el('#dialog-subtitle').textContent = language === 'zh' ? p.cn : p.short;
     el('#dialog-subtitle').lang = document.documentElement.lang;
     el('#dialog-description').textContent = p.description;
-    el('#project-position').textContent = `${text('project')} 0${activeProject + 1} / 0${projects.length}`;
+    el('#project-position').textContent = `${text('project')} ${number(activeProject + 1)} / ${number(projects.length)}`;
+    projectDialog.classList.toggle('fit-artwork', Boolean(p.fit));
+    projectDialog.classList.toggle('type-project', Boolean(p.specimen));
+    el('#project-website').hidden = !p.website;
+    if (p.website) el('#project-website').href = p.website;
+    else el('#project-website').removeAttribute('href');
+    el('#type-lab').hidden = !p.specimen;
+    el('#lettering-showcase').hidden = !p.specimen;
+    if (p.specimen) {
+      window.PORTFOLIO_LETTERING_SHOWCASE.render(language);
+      window.PORTFOLIO_TYPE_LAB.render(language);
+    }
     el('#case-thumbnails').replaceChildren();
     p.slides.forEach((imageNumber, i) => {
       const caption = p.captions[imageNumber - 1];
@@ -105,15 +117,16 @@
     const caption = p.captions[imageNumber - 1];
     const image = el('#case-image');
     image.src = `assets/${p.id}-${imageNumber}.webp`;
+    el('#case-original').href = image.src;
     image.alt = `${p.title}: ${caption}`;
     el('#case-caption').textContent = caption;
-    el('#slide-status').textContent = `0${activeSlide + 1} / 0${p.captions.length}`;
+    el('#slide-status').textContent = `${number(activeSlide + 1)} / ${number(p.slides.length)}`;
     el('#prev-slide').disabled = activeSlide === 0;
-    el('#next-slide').disabled = activeSlide === p.captions.length - 1;
+    el('#next-slide').disabled = activeSlide === p.slides.length - 1;
     el('#case-thumbnails').querySelectorAll('button').forEach((button, i) => button.setAttribute('aria-pressed', String(i === activeSlide)));
   }
   el('#prev-slide').addEventListener('click', () => { if (activeSlide > 0) { activeSlide--; updateSlide(); } });
-  el('#next-slide').addEventListener('click', () => { if (activeSlide < projects[activeProject].captions.length - 1) { activeSlide++; updateSlide(); } });
+  el('#next-slide').addEventListener('click', () => { if (activeSlide < projects[activeProject].slides.length - 1) { activeSlide++; updateSlide(); } });
   el('#next-project').addEventListener('click', () => openProject((activeProject + 1) % projects.length));
   [el('#index-open'), el('#archive-open')].forEach(button => button.addEventListener('click', () => showDialog(indexDialog)));
   [projectDialog, indexDialog].forEach(dialog => {
@@ -128,8 +141,9 @@
     });
   });
   projectDialog.addEventListener('keydown', event => {
+    if (event.target.closest('input, textarea, select, [contenteditable], #type-lab, #lettering-showcase')) return;
     if (event.key === 'ArrowLeft' && activeSlide > 0) { event.preventDefault(); activeSlide--; updateSlide(); }
-    if (event.key === 'ArrowRight' && activeSlide < projects[activeProject].captions.length - 1) { event.preventDefault(); activeSlide++; updateSlide(); }
+    if (event.key === 'ArrowRight' && activeSlide < projects[activeProject].slides.length - 1) { event.preventDefault(); activeSlide++; updateSlide(); }
   });
   el('#year').textContent = new Date().getFullYear();
   setLanguage(language);
